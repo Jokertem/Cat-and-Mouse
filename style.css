@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  /*
+* Created with https://www.css-gradient.com
+* Gradient link: https://www.css-gradient.com/?c1=f4ef84&c2=d8bd3c&gt=l&gd=dtl
+*/
+  background: #f4ef84;
+  background: linear-gradient(135deg, #f4ef84, #d8bd3c) no-repeat;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+canvas {
+  margin-top: 30px;
+  border: solid 2px;
+}
