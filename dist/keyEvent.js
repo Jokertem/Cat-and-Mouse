@@ -2,19 +2,19 @@ export const setEvents = (game) => {
     document.addEventListener("keydown", (e) => {
         const key = e.code;
         if (key === "KeyW" || key === "ArrowUp") {
-            restartKey(game.keys);
+            //restartKey(game.keys);
             game.keys.Up = true;
         }
         if (key === "KeyS" || key === "ArrowDown") {
-            restartKey(game.keys);
+            //restartKey(game.keys);
             game.keys.Down = true;
         }
         if (key === "KeyA" || key === "ArrowLeft") {
-            restartKey(game.keys);
+            //restartKey(game.keys);
             game.keys.Left = true;
         }
         if (key === "KeyD" || key === "ArrowRight") {
-            restartKey(game.keys);
+            //restartKey(game.keys);
             game.keys.Righ = true;
         }
     });

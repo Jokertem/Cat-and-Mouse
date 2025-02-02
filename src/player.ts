@@ -15,7 +15,7 @@ export class Player {
     this.prevX = x;
     this.prevY = y;
     this.cheese = 0;
-    this.size = 32;
+    this.size = 28;
   }
   draw(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = "white";
@@ -55,14 +55,11 @@ export class Player {
     this.prevY = this.y;
     if (game.keys.Up) {
       this.y -= this.speed;
-    }
-    if (game.keys.Down) {
+    } else if (game.keys.Down) {
       this.y += this.speed;
-    }
-    if (game.keys.Left) {
+    } else if (game.keys.Left) {
       this.x -= this.speed;
-    }
-    if (game.keys.Righ) {
+    } else if (game.keys.Righ) {
       this.x += this.speed;
     }
   }
