@@ -1,8 +1,8 @@
-export var Direction;
-(function (Direction) {
-    Direction[Direction["Up"] = 0] = "Up";
-    Direction[Direction["Down"] = 1] = "Down";
-    Direction[Direction["Left"] = 2] = "Left";
-    Direction[Direction["Righ"] = 3] = "Righ";
-})(Direction || (Direction = {}));
+export var Directions;
+(function (Directions) {
+    Directions[Directions["UP"] = 0] = "UP";
+    Directions[Directions["DOWN"] = 1] = "DOWN";
+    Directions[Directions["LEFT"] = 2] = "LEFT";
+    Directions[Directions["RIGHT"] = 3] = "RIGHT";
+})(Directions || (Directions = {}));
 //# sourceMappingURL=directions.js.map

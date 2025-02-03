@@ -1,6 +1,7 @@
 import { Player } from "./player.js";
 import { drawMap, map, setCanvasSize, tileSize } from "./tilemap.js";
 import { setEvents } from "./keyEvent.js";
+import { Cheese } from "./cheese.js";
 
 const canvas: HTMLCanvasElement = document.querySelector(
   "canvas"
@@ -19,6 +20,7 @@ const game = {
     Left: false,
     Right: false,
   },
+  animationSpeed: 15,
 };
 setEvents(game);
 
@@ -30,8 +32,13 @@ const animate = () => {
   ctx.fillStyle = "#825b0e";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   drawMap(ctx);
-  game.player.draw(ctx);
+  game.player.draw(ctx, game);
   game.player.update(game);
+  Cheese.draw(ctx);
+  Cheese.update(game.player);
+  document.querySelector<HTMLElement | any>(
+    ".cheeseCount"
+  ).innerText = `Cheese ${game.player.cheeses}`;
   requestAnimationFrame(animate);
 };
 animate();

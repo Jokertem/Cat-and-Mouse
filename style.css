@@ -12,7 +12,13 @@ body {
   background: linear-gradient(135deg, #f4ef84, #d8bd3c) no-repeat;
   display: flex;
   justify-content: center;
+  align-items: center;
   height: 100vh;
+}
+main {
+  display: flex;
+  font-size: 22px;
+  flex-direction: column;
 }
 canvas {
   margin-top: 30px;

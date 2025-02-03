@@ -37,9 +37,3 @@ export const setEvents = (game: any) => {
     }
   });
 };
-const restartKey = (keys: any) => {
-  keys.Up = false;
-  keys.Down = false;
-  keys.Left = false;
-  keys.Righ = false;
-};

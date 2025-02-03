@@ -34,10 +34,4 @@ export const setEvents = (game) => {
         }
     });
 };
-const restartKey = (keys) => {
-    keys.Up = false;
-    keys.Down = false;
-    keys.Left = false;
-    keys.Righ = false;
-};
 //# sourceMappingURL=keyEvent.js.map
