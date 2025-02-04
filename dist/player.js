@@ -10,7 +10,7 @@ export class Player {
         this.prevX = x;
         this.prevY = y;
         this.cheese = 0;
-        this.size = 32;
+        this.size = 24;
         this.cheeses = 0;
         this.direction = Directions.RIGHT;
         this.currentFrame = 0;

@@ -1,5 +1,4 @@
 import { tileSize, map } from "./tilemap.js";
-const maxCheese = 3;
 const cheeseImg = new Image();
 const cheeseSize = 24;
 cheeseImg.src = "assets/cheese/a.PNG";
@@ -16,8 +15,8 @@ Cheese.draw = (ctx) => {
         ctx.drawImage(cheeseImg, cheese.x, cheese.y, cheese.size, cheese.size);
     });
 };
-Cheese.update = (player) => {
-    if (cheeses.length < maxCheese) {
+Cheese.update = (game) => {
+    if (cheeses.length < game.maxCheese) {
         const row = Math.floor(Math.random() * map.length);
         const col = Math.floor(Math.random() * map[0].length);
         const tile = map[row][col];
@@ -29,12 +28,12 @@ Cheese.update = (player) => {
     }
     //Colisons with player
     cheeses.forEach((cheese, index) => {
-        if (player.x < cheese.x + cheese.size &&
-            player.x + player.size > cheese.x &&
-            player.y < cheese.y + cheese.size &&
-            player.y + player.size > cheese.y) {
+        if (game.player.x < cheese.x + cheese.size &&
+            game.player.x + game.player.size > cheese.x &&
+            game.player.y < cheese.y + cheese.size &&
+            game.player.y + game.player.size > cheese.y) {
             cheeses.splice(index, 1);
-            player.cheeses++;
+            game.player.cheeses++;
         }
     });
 };

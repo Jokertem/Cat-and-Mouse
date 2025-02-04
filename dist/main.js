@@ -2,6 +2,7 @@ import { Player } from "./player.js";
 import { drawMap, map, setCanvasSize, tileSize } from "./tilemap.js";
 import { setEvents } from "./keyEvent.js";
 import { Cheese } from "./cheese.js";
+import { Cat } from "./cat.js";
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const game = {
@@ -15,10 +16,20 @@ const game = {
         Right: false,
     },
     animationSpeed: 15,
+    maxCheese: 3,
+    maxCats: 0,
 };
 setEvents(game);
 canvas.width = game.canvasSize.width;
 canvas.height = game.canvasSize.height;
+const gameHarder = () => {
+    if (game.player.cheeses >= 2) {
+        game.maxCats = 1;
+    }
+    if (game.player.cheeses >= 15) {
+        game.maxCheese = 4;
+    }
+};
 const animate = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#825b0e";
@@ -27,7 +38,10 @@ const animate = () => {
     game.player.draw(ctx, game);
     game.player.update(game);
     Cheese.draw(ctx);
-    Cheese.update(game.player);
+    Cheese.update(game);
+    Cat.draw(ctx, game);
+    Cat.update(game);
+    gameHarder();
     document.querySelector(".cheeseCount").innerText = `Cheese ${game.player.cheeses}`;
     requestAnimationFrame(animate);
 };
