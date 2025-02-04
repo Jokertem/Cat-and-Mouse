@@ -8,7 +8,7 @@ export class Cheese {
   x: number;
   y: number;
   size: number;
-  constructor(x: number, y: number, size: number) {
+  private constructor(x: number, y: number, size: number) {
     this.x = x;
     this.y = y;
     this.size = size;

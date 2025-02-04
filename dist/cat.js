@@ -29,7 +29,7 @@ Cat.draw = (ctx, game) => {
             cat.frameLimiter = 0;
         }
         if (cat.direction === Directions.DOWN) {
-            ctx.drawImage(cat.color, cycleFramesX[cat.currentFrame], 32, 32, 32, cat.x, cat.y, cat.size, cat.size);
+            ctx.drawImage(cat.color, cycleFramesX[cat.currentFrame], 33, 32, 33, cat.x, cat.y, cat.size, cat.size);
         }
         else if (cat.direction === Directions.UP) {
             ctx.drawImage(cat.color, cycleFramesX[cat.currentFrame], 32 * 9, 32, 32, cat.x, cat.y, cat.size, cat.size);
@@ -58,7 +58,7 @@ Cat.update = (game) => {
         if (tile === 1) {
             return;
         }
-        const newCat = new Cat(col * tileSize, row * tileSize, 42, sprites[randomColor], randomDirection);
+        const newCat = new Cat(col * tileSize, row * tileSize, 44, sprites[randomColor], randomDirection);
         cats.push(newCat);
     }
     cats.forEach((cat) => {
@@ -114,6 +114,13 @@ Cat.update = (game) => {
                 }
             });
         });
+        //Colions with player
+        if (cat.x < game.player.x + game.player.size &&
+            cat.x + cat.size > game.player.x &&
+            cat.y < game.player.y + game.player.size &&
+            cat.y + cat.size > game.player.y) {
+            game.gameOver = true;
+        }
     });
 };
 const setRandomDirection = (cat) => {

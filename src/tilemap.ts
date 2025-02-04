@@ -26,8 +26,8 @@ export const setCanvasSize = () => {
 export const drawMap = (ctx: CanvasRenderingContext2D) => {
   map.forEach((row, i) => {
     row.forEach((col, j) => {
-      ctx.strokeStyle = "red";
-      ctx.strokeRect(j * tileSize, i * tileSize, tileSize, tileSize);
+      // ctx.strokeStyle = "red";
+      // ctx.strokeRect(j * tileSize, i * tileSize, tileSize, tileSize);
 
       switch (col) {
         case 0:

@@ -2,20 +2,24 @@ export const setEvents = (game) => {
     document.addEventListener("keydown", (e) => {
         const key = e.code;
         if (key === "KeyW" || key === "ArrowUp") {
-            //restartKey(game.keys);
             game.keys.Up = true;
         }
         if (key === "KeyS" || key === "ArrowDown") {
-            //restartKey(game.keys);
             game.keys.Down = true;
         }
         if (key === "KeyA" || key === "ArrowLeft") {
-            //restartKey(game.keys);
             game.keys.Left = true;
         }
         if (key === "KeyD" || key === "ArrowRight") {
-            //restartKey(game.keys);
             game.keys.Righ = true;
+        }
+        if (key === "Space" || key === "KeyP") {
+            game.pauza = !game.pauza;
+        }
+        if (key === "Enter") {
+            if (game.gameOver || game.player.cheeses >= game.cheeseWinCount) {
+                window.location.reload();
+            }
         }
     });
     document.addEventListener("keyup", (e) => {

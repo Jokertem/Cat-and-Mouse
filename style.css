@@ -19,8 +19,40 @@ main {
   display: flex;
   font-size: 22px;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 canvas {
   margin-top: 30px;
   border: solid 2px;
+}
+.gameOver,
+.win {
+  position: absolute;
+  border: 1px solid #000000;
+  width: 50%;
+  height: 150px;
+  display: none;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8px;
+  bottom: 220px;
+  gap: 5px;
+  background-color: rgba(199, 227, 225, 0.3);
+  backdrop-filter: blur(7.1px);
+  -webkit-backdrop-filter: blur(7.1px);
+}
+.restart {
+  width: 40%;
+  height: 26%;
+  font-weight: bold;
+  background-color: #f4ef84;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.restart:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }

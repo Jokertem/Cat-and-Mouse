@@ -22,7 +22,7 @@ export class Cat {
   direction: Directions;
   currentFrame: number;
   frameLimiter: number;
-  constructor(
+  private constructor(
     x: number,
     y: number,
     size: number,
@@ -52,9 +52,9 @@ export class Cat {
         ctx.drawImage(
           cat.color,
           cycleFramesX[cat.currentFrame],
+          33,
           32,
-          32,
-          32,
+          33,
           cat.x,
           cat.y,
           cat.size,
@@ -120,7 +120,7 @@ export class Cat {
       const newCat = new Cat(
         col * tileSize,
         row * tileSize,
-        42,
+        44,
         sprites[randomColor],
         randomDirection
       );
@@ -185,6 +185,15 @@ export class Cat {
           }
         });
       });
+      //Colions with player
+      if (
+        cat.x < game.player.x + game.player.size &&
+        cat.x + cat.size > game.player.x &&
+        cat.y < game.player.y + game.player.size &&
+        cat.y + cat.size > game.player.y
+      ) {
+        game.gameOver = true;
+      }
     });
   };
 }

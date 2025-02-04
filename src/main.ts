@@ -12,6 +12,8 @@ const ctx: CanvasRenderingContext2D = canvas.getContext(
 ) as CanvasRenderingContext2D;
 
 const game = {
+  pauza: false,
+  gameOver: false,
   canvasSize: setCanvasSize(),
   map: map,
   player: new Player(2 * tileSize, 9 * tileSize, 4),
@@ -22,8 +24,9 @@ const game = {
     Right: false,
   },
   animationSpeed: 15,
-  maxCheese: 3,
+  maxCheese: 2,
   maxCats: 0,
+  cheeseWinCount: 100,
 };
 setEvents(game);
 
@@ -40,20 +43,56 @@ const gameHarder = () => {
 };
 
 const animate = () => {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#825b0e";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  drawMap(ctx);
-  game.player.draw(ctx, game);
-  game.player.update(game);
-  Cheese.draw(ctx);
-  Cheese.update(game);
-  Cat.draw(ctx, game);
-  Cat.update(game);
-  gameHarder();
-  document.querySelector<HTMLElement | any>(
-    ".cheeseCount"
-  ).innerText = `Cheese ${game.player.cheeses}`;
+  if (
+    !game.pauza &&
+    !game.gameOver &&
+    game.player.cheeses < game.cheeseWinCount
+  ) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#825b0e";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    drawMap(ctx);
+    game.player.draw(ctx, game);
+    game.player.update(game);
+    Cheese.draw(ctx);
+    Cheese.update(game);
+    Cat.draw(ctx, game);
+    Cat.update(game);
+    gameHarder();
+    document.querySelector<HTMLElement | any>(
+      ".cheeseCount"
+    ).innerText = `Cheese ${game.player.cheeses}`;
+  } else if (game.gameOver) {
+    const gameOverWindow: HTMLElement = document.querySelector(
+      ".gameOver"
+    ) as HTMLElement;
+    if (gameOverWindow.style.display !== "flex") {
+      gameOverWindow.style.display = "flex";
+      document
+        .querySelector<HTMLElement>(".restart")
+        ?.addEventListener("click", () => {
+          window.location.reload();
+        });
+      document.querySelector<HTMLSpanElement | any>(
+        ".gameOver__cheese"
+      ).innerText = `You Have ${game.player.cheeses} chesses`;
+    }
+  } else if (game.player.cheeses >= game.cheeseWinCount) {
+    const gameWinWindow: HTMLElement = document.querySelector(
+      ".win"
+    ) as HTMLElement;
+    if (gameWinWindow.style.display !== "flex") {
+      gameWinWindow.style.display = "flex";
+      document
+        .querySelector<HTMLElement>(".winRestart")
+        ?.addEventListener("click", () => {
+          window.location.reload();
+        });
+      document.querySelector<HTMLSpanElement | any>(
+        ".gameOver__cheese"
+      ).innerText = `You Have ${game.player.cheeses} chesses`;
+    }
+  }
   requestAnimationFrame(animate);
 };
 animate();
