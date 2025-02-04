@@ -18,7 +18,8 @@ export class Cheese {
       ctx.drawImage(cheeseImg, cheese.x, cheese.y, cheese.size, cheese.size);
     });
   };
-  static update = (game: any) => {
+  static update = (game: any, ctx: CanvasRenderingContext2D) => {
+    this.draw(ctx);
     if (cheeses.length < game.maxCheese) {
       const row = Math.floor(Math.random() * map.length);
       const col = Math.floor(Math.random() * map[0].length);

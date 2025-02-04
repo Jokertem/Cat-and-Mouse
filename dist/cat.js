@@ -1,3 +1,4 @@
+var _a;
 import { Directions } from "./directions.js";
 import { tileSize } from "./tilemap.js";
 const cats = [];
@@ -21,6 +22,7 @@ export class Cat {
         this.frameLimiter = 0;
     }
 }
+_a = Cat;
 Cat.draw = (ctx, game) => {
     const cycleFramesX = [20 * 32, 21 * 32, 22 * 32, 23 * 32];
     cats.forEach((cat) => {
@@ -29,7 +31,7 @@ Cat.draw = (ctx, game) => {
             cat.frameLimiter = 0;
         }
         if (cat.direction === Directions.DOWN) {
-            ctx.drawImage(cat.color, cycleFramesX[cat.currentFrame], 33, 32, 33, cat.x, cat.y, cat.size, cat.size);
+            ctx.drawImage(cat.color, cycleFramesX[cat.currentFrame], 33, 32, 31, cat.x, cat.y, cat.size, cat.size);
         }
         else if (cat.direction === Directions.UP) {
             ctx.drawImage(cat.color, cycleFramesX[cat.currentFrame], 32 * 9, 32, 32, cat.x, cat.y, cat.size, cat.size);
@@ -48,7 +50,8 @@ Cat.draw = (ctx, game) => {
         }
     });
 };
-Cat.update = (game) => {
+Cat.update = (game, ctx) => {
+    _a.draw(ctx, game);
     if (cats.length < game.maxCats) {
         const randomColor = Math.floor(Math.random() * 47);
         const randomDirection = Math.floor(Math.random() * 4);
@@ -58,7 +61,7 @@ Cat.update = (game) => {
         if (tile === 1) {
             return;
         }
-        const newCat = new Cat(col * tileSize, row * tileSize, 44, sprites[randomColor], randomDirection);
+        const newCat = new _a(col * tileSize, row * tileSize, 44, sprites[randomColor], randomDirection);
         cats.push(newCat);
     }
     cats.forEach((cat) => {

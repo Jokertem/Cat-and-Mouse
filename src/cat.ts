@@ -54,7 +54,7 @@ export class Cat {
           cycleFramesX[cat.currentFrame],
           33,
           32,
-          33,
+          31,
           cat.x,
           cat.y,
           cat.size,
@@ -107,7 +107,8 @@ export class Cat {
     });
   };
 
-  static update = (game: any) => {
+  static update = (game: any, ctx: CanvasRenderingContext2D) => {
+    this.draw(ctx, game);
     if (cats.length < game.maxCats) {
       const randomColor = Math.floor(Math.random() * 47);
       const randomDirection = Math.floor(Math.random() * 4);

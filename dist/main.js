@@ -3,6 +3,7 @@ import { drawMap, map, setCanvasSize, tileSize } from "./tilemap.js";
 import { setEvents } from "./keyEvent.js";
 import { Cheese } from "./cheese.js";
 import { Cat } from "./cat.js";
+import { Trap } from "./trap.js";
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 const game = {
@@ -20,6 +21,7 @@ const game = {
     animationSpeed: 15,
     maxCheese: 2,
     maxCats: 0,
+    maxTrap: 4,
     cheeseWinCount: 100,
 };
 setEvents(game);
@@ -44,10 +46,9 @@ const animate = () => {
         drawMap(ctx);
         game.player.draw(ctx, game);
         game.player.update(game);
-        Cheese.draw(ctx);
-        Cheese.update(game);
-        Cat.draw(ctx, game);
-        Cat.update(game);
+        Cheese.update(game, ctx);
+        Cat.update(game, ctx);
+        Trap.update(ctx, game);
         gameHarder();
         document.querySelector(".cheeseCount").innerText = `Cheese ${game.player.cheeses}`;
     }
@@ -70,7 +71,7 @@ const animate = () => {
                 .querySelector(".winRestart")) === null || _b === void 0 ? void 0 : _b.addEventListener("click", () => {
                 window.location.reload();
             });
-            document.querySelector(".gameOver__cheese").innerText = `You Have ${game.player.cheeses} chesses`;
+            document.querySelector(".gameOver__cheese").innerText = `You Have ${game.player.cheeses} cheeses`;
         }
     }
     requestAnimationFrame(animate);

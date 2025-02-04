@@ -1,3 +1,4 @@
+var _a;
 import { tileSize, map } from "./tilemap.js";
 const cheeseImg = new Image();
 const cheeseSize = 24;
@@ -10,12 +11,14 @@ export class Cheese {
         this.size = size;
     }
 }
+_a = Cheese;
 Cheese.draw = (ctx) => {
     cheeses.forEach((cheese) => {
         ctx.drawImage(cheeseImg, cheese.x, cheese.y, cheese.size, cheese.size);
     });
 };
-Cheese.update = (game) => {
+Cheese.update = (game, ctx) => {
+    _a.draw(ctx);
     if (cheeses.length < game.maxCheese) {
         const row = Math.floor(Math.random() * map.length);
         const col = Math.floor(Math.random() * map[0].length);
@@ -23,7 +26,7 @@ Cheese.update = (game) => {
         if (tile === 1) {
             return;
         }
-        const newCheese = new Cheese(col * tileSize + tileSize / 2 - cheeseSize / 2, row * tileSize + tileSize / 2 - cheeseSize / 2, cheeseSize);
+        const newCheese = new _a(col * tileSize + tileSize / 2 - cheeseSize / 2, row * tileSize + tileSize / 2 - cheeseSize / 2, cheeseSize);
         cheeses.push(newCheese);
     }
     //Colisons with player
