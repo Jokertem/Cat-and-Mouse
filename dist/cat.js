@@ -1,6 +1,7 @@
 var _a;
 import { Directions } from "./directions.js";
 import { tileSize } from "./tilemap.js";
+import { isColision, setRandomPosition } from "./utils.js";
 const cats = [];
 const sprites = [];
 for (let index = 1; index < 48; index++) {
@@ -55,13 +56,11 @@ Cat.update = (game, ctx) => {
     if (cats.length < game.maxCats) {
         const randomColor = Math.floor(Math.random() * 47);
         const randomDirection = Math.floor(Math.random() * 4);
-        const row = Math.floor(Math.random() * game.map.length);
-        const col = Math.floor(Math.random() * game.map[0].length);
-        const tile = game.map[row][col];
-        if (tile === 1) {
+        const poss = setRandomPosition();
+        if (poss === undefined) {
             return;
         }
-        const newCat = new _a(col * tileSize, row * tileSize, 44, sprites[randomColor], randomDirection);
+        const newCat = new _a(poss.x * tileSize, poss.y * tileSize, 44, sprites[randomColor], randomDirection);
         cats.push(newCat);
     }
     cats.forEach((cat) => {
@@ -107,10 +106,7 @@ Cat.update = (game, ctx) => {
                 const tileX = j * tileSize;
                 const tileY = i * tileSize;
                 if (col == 1 &&
-                    cat.x < tileX + tileSize &&
-                    cat.x + cat.size > tileX &&
-                    cat.y < tileY + tileSize &&
-                    cat.y + cat.size > tileY) {
+                    isColision(cat, { x: tileX, y: tileY, size: tileSize })) {
                     cat.x = cat.prevX;
                     cat.y = cat.prevY;
                     cat.direction = setRandomDirection(cat);
@@ -118,10 +114,7 @@ Cat.update = (game, ctx) => {
             });
         });
         //Colions with player
-        if (cat.x < game.player.x + game.player.size &&
-            cat.x + cat.size > game.player.x &&
-            cat.y < game.player.y + game.player.size &&
-            cat.y + cat.size > game.player.y) {
+        if (isColision(cat, game.player)) {
             game.gameOver = true;
         }
     });

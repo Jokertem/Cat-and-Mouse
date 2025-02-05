@@ -21,7 +21,7 @@ const game = {
     animationSpeed: 15,
     maxCheese: 2,
     maxCats: 0,
-    maxTrap: 4,
+    maxTrap: 0,
     cheeseWinCount: 100,
 };
 setEvents(game);
@@ -31,8 +31,44 @@ const gameHarder = () => {
     if (game.player.cheeses >= 2) {
         game.maxCats = 1;
     }
-    if (game.player.cheeses >= 15) {
+    if (game.player.cheeses >= 12) {
+        game.maxCheese = 3;
+    }
+    if (game.player.cheeses >= 16) {
+        game.maxCats = 2;
+    }
+    if (game.player.cheeses >= 24) {
         game.maxCheese = 4;
+    }
+    if (game.player.cheeses >= 32) {
+        game.maxTrap = 1;
+    }
+    if (game.player.cheeses >= 35) {
+        game.maxCats = 3;
+    }
+    if (game.player.cheeses >= 39) {
+        game.maxCheese = 5;
+    }
+    if (game.player.cheeses >= 42) {
+        game.maxCats = 4;
+    }
+    if (game.player.cheeses >= 46) {
+        game.maxTrap = 2;
+    }
+    if (game.player.cheeses >= 52) {
+        game.maxTrap = 3;
+        game.maxCats = 4;
+    }
+    if (game.player.cheeses >= 58) {
+        game.maxTrap = 4;
+        game.maxCheese = 6;
+    }
+    if (game.player.cheeses >= 62) {
+        game.maxCats = 5;
+    }
+    if (game.player.cheeses >= 82) {
+        game.maxCats = 6;
+        game.maxTrap = 5;
     }
 };
 const animate = () => {

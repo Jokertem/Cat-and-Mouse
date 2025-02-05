@@ -1,6 +1,7 @@
 import { Directions } from "./directions.js";
 import { Player } from "./player.js";
 import { tileSize } from "./tilemap.js";
+import { isColision, setRandomPosition } from "./utils.js";
 
 const cats: Cat[] = [];
 const sprites: HTMLImageElement[] = [];
@@ -112,15 +113,13 @@ export class Cat {
     if (cats.length < game.maxCats) {
       const randomColor = Math.floor(Math.random() * 47);
       const randomDirection = Math.floor(Math.random() * 4);
-      const row = Math.floor(Math.random() * game.map.length);
-      const col = Math.floor(Math.random() * game.map[0].length);
-      const tile = game.map[row][col];
-      if (tile === 1) {
+      const poss = setRandomPosition();
+      if (poss === undefined) {
         return;
       }
       const newCat = new Cat(
-        col * tileSize,
-        row * tileSize,
+        poss.x * tileSize,
+        poss.y * tileSize,
         44,
         sprites[randomColor],
         randomDirection
@@ -175,10 +174,7 @@ export class Cat {
 
           if (
             col == 1 &&
-            cat.x < tileX + tileSize &&
-            cat.x + cat.size > tileX &&
-            cat.y < tileY + tileSize &&
-            cat.y + cat.size > tileY
+            isColision(cat, { x: tileX, y: tileY, size: tileSize })
           ) {
             cat.x = cat.prevX;
             cat.y = cat.prevY;
@@ -187,12 +183,7 @@ export class Cat {
         });
       });
       //Colions with player
-      if (
-        cat.x < game.player.x + game.player.size &&
-        cat.x + cat.size > game.player.x &&
-        cat.y < game.player.y + game.player.size &&
-        cat.y + cat.size > game.player.y
-      ) {
+      if (isColision(cat, game.player)) {
         game.gameOver = true;
       }
     });

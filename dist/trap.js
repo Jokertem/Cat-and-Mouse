@@ -1,4 +1,5 @@
-import { tileSize, map } from "./tilemap.js";
+import { tileSize } from "./tilemap.js";
+import { isColision, setRandomPosition } from "./utils.js";
 const Traps = [];
 const trapSize = 32;
 const trapImgage = new Image();
@@ -28,13 +29,11 @@ export class Trap {
     static update(ctx, game) {
         this.draw(ctx, game);
         if (Traps.length < game.maxTrap) {
-            const row = Math.floor(Math.random() * map.length);
-            const col = Math.floor(Math.random() * map[0].length);
-            const tile = map[row][col];
-            if (tile === 1) {
+            const poss = setRandomPosition();
+            if (poss === undefined) {
                 return;
             }
-            const newTrap = new Trap(col * tileSize + tileSize / 2 - trapSize / 2, row * tileSize + tileSize / 2 - trapSize / 2, trapSize);
+            const newTrap = new Trap(poss.x * tileSize + tileSize / 2 - trapSize / 2, poss.y * tileSize + tileSize / 2 - trapSize / 2, trapSize);
             Traps.push(newTrap);
         }
         //Colosions with player
@@ -42,10 +41,7 @@ export class Trap {
             if (trap.trap) {
                 trap.timer++;
             }
-            if (game.player.x < trap.x + trap.size &&
-                game.player.x + game.player.size > trap.x &&
-                game.player.y < trap.y + trap.size &&
-                game.player.y + game.player.size > trap.y) {
+            if (isColision(game.player, trap)) {
                 game.player.speed = 0;
                 trap.trap = true;
             }

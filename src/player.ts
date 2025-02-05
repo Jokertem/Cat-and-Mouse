@@ -1,5 +1,6 @@
 import { Directions } from "./directions.js";
 import { tileSize } from "./tilemap.js";
+import { isColision } from "./utils.js";
 
 const rat = new Image();
 rat.src = "assets/Rats.png";
@@ -118,10 +119,7 @@ export class Player {
 
         if (
           col == 1 &&
-          this.x < tileX + tileSize &&
-          this.x + this.size > tileX &&
-          this.y < tileY + tileSize &&
-          this.y + this.size > tileY
+          isColision(this, { x: tileX, y: tileY, size: tileSize })
         ) {
           this.x = this.prevX;
           this.y = this.prevY;

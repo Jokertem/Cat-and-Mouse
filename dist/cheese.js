@@ -1,5 +1,6 @@
 var _a;
-import { tileSize, map } from "./tilemap.js";
+import { tileSize } from "./tilemap.js";
+import { isColision, setRandomPosition } from "./utils.js";
 const cheeseImg = new Image();
 const cheeseSize = 24;
 cheeseImg.src = "assets/cheese/a.PNG";
@@ -20,21 +21,16 @@ Cheese.draw = (ctx) => {
 Cheese.update = (game, ctx) => {
     _a.draw(ctx);
     if (cheeses.length < game.maxCheese) {
-        const row = Math.floor(Math.random() * map.length);
-        const col = Math.floor(Math.random() * map[0].length);
-        const tile = map[row][col];
-        if (tile === 1) {
+        const poss = setRandomPosition();
+        if (poss === undefined) {
             return;
         }
-        const newCheese = new _a(col * tileSize + tileSize / 2 - cheeseSize / 2, row * tileSize + tileSize / 2 - cheeseSize / 2, cheeseSize);
+        const newCheese = new _a(poss.x * tileSize + tileSize / 2 - cheeseSize / 2, poss.y * tileSize + tileSize / 2 - cheeseSize / 2, cheeseSize);
         cheeses.push(newCheese);
     }
     //Colisons with player
     cheeses.forEach((cheese, index) => {
-        if (game.player.x < cheese.x + cheese.size &&
-            game.player.x + game.player.size > cheese.x &&
-            game.player.y < cheese.y + cheese.size &&
-            game.player.y + game.player.size > cheese.y) {
+        if (isColision(game.player, cheese)) {
             cheeses.splice(index, 1);
             game.player.cheeses++;
         }
